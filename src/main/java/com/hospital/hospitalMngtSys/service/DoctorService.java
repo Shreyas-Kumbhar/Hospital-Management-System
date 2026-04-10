@@ -83,9 +83,11 @@ public class DoctorService {
 
     //delete by name
     public void deleteDoctorByName(String name) {
+        List<Doctor> doctors = doctorRepository.findByNameIgnoreCase(name);
+        if(doctors.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Doctor not found!!!");
+        }
         doctorRepository.deleteByName(name);
     }
-
-
 
 }

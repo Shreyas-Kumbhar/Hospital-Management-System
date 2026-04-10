@@ -2,7 +2,13 @@ package com.hospital.hospitalMngtSys.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.*;
 
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Prescription {
     @Id

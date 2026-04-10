@@ -3,9 +3,16 @@ package com.hospital.hospitalMngtSys.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
 import java.time.LocalDate;
 
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 public class Appointment {
     @Id

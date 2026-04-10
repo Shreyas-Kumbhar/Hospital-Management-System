@@ -19,8 +19,8 @@ public class Patient {
     private Long id;
     @NotEmpty(message="Name is required!!")
     private String name;
-    @NonNull
-    private int age;
+    @NotNull
+    private Integer age;
     @NotEmpty(message="Address is required!!")
     private String address;
     @Email(message="Enter a valid email!!")
