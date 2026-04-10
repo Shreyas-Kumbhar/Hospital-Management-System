@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DoctorRepository extends JpaRepository<Doctor,Long> {
     //custom query in Spring Data JPA
-    void deleteByName(String name);
+    long deleteByNameIgnoreCase(String name);
     List<Doctor> findByNameIgnoreCase(String name);
     List<Doctor> findBySpecializationIgnoreCase(String specialization);
 }

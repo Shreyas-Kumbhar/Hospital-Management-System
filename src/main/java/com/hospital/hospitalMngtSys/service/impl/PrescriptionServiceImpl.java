@@ -11,8 +11,8 @@ import java.util.List;
 
 @Service
 public class PrescriptionServiceImpl implements PrescriptionService {
-    private PrescriptionRepository prescriptionRepository;
-    public PrescriptionServiceImpl(PrescriptionRepository prescriptionRepository) {
+    private final PrescriptionRepository prescriptionRepository;
+    public  PrescriptionServiceImpl(PrescriptionRepository prescriptionRepository) {
         this.prescriptionRepository = prescriptionRepository;
     }
 
@@ -26,7 +26,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     @Override
     public Prescription getPrescriptionById(Long id){
         return prescriptionRepository.findById(id)
-                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Prescription not found!!"));
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Prescription not found"));
     }
 
     //get all prescriptions
@@ -45,7 +45,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     @Override
     public Prescription updatePrescription(Long id,Prescription prescription){
         Prescription updatedPrescription = prescriptionRepository.findById(id)
-                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Prescription not found!!"));
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Prescription not found"));
         if(prescription.getMedicine()!=null){
             updatedPrescription.setMedicine(prescription.getMedicine());
         }
@@ -65,7 +65,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     @Override
     public void deletePrescriptionById(Long id){
         Prescription prescription = prescriptionRepository.findById(id)
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Prescription not found!!!"));
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Prescription not found"));
         prescriptionRepository.delete(prescription);
     }
 
