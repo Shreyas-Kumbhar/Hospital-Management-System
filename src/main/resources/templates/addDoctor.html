@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Doctor</title>
+
+    <!-- CSS link -->
+    <link rel="stylesheet" th:href="@{/css/addDoctor.css}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Add Doctor</h2>
+
+    <form th:action="@{/doctors}" th:object="${doctor}" method="post">
+
+        <label>Name:</label>
+        <input type="text" th:field="*{name}" />
+        <p class="error"
+           th:if="${#fields.hasErrors('name')}"
+           th:errors="*{name}"></p>
+
+        <label>Specialization:</label>
+        <input type="text" th:field="*{specialization}" />
+        <p class="error"
+           th:if="${#fields.hasErrors('specialization')}"
+           th:errors="*{specialization}"></p>
+
+        <label>Phone:</label>
+        <input type="text" th:field="*{phone}" />
+        <p class="error"
+           th:if="${#fields.hasErrors('phone')}"
+           th:errors="*{phone}"></p>
+
+        <button type="submit">Save</button>
+    </form>
+
+    <a class="back-link" th:href="@{/doctors/list}">← Back to List</a>
+
+</div>
+
+</body>
+</html>

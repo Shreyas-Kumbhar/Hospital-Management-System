@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Prescription</title>
+    <link rel="stylesheet" th:href="@{/css/addPrescription.css}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Create Prescription</h2>
+
+    <p th:if="${error}" th:text="${error}" style="color:red;"></p>
+
+    <form th:action="@{/prescription}" method="post">
+
+        <label>Medicine:</label>
+        <input type="text" name="medicine" required />
+
+        <label>Dosage:</label>
+        <input type="text" name="dosage" required />
+
+        <label>Notes:</label>
+        <input type="text" name="notes" required />
+
+        <label>Appointment:</label>
+        <select name="appointment" required>
+            <option value="">-- Select Appointment --</option>
+
+            <option th:each="a : ${appointments}"
+                    th:value="${a.id}"
+                    th:text="'ID: ' + ${a.id}">
+            </option>
+
+        </select>
+
+        <button type="submit">Save Prescription</button>
+
+    </form>
+
+    <a th:href="@{/prescription/list}">Back</a>
+
+</div>
+
+</body>
+</html>

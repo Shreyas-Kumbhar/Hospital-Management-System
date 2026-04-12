@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Appointments</title>
+    <link rel="stylesheet" th:href="@{/css/appointmentList.css}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>All Appointments</h2>
+
+    <div class="top-bar">
+        <a class="add-btn" th:href="@{/appointment/add}">+ New Appointment</a>
+    </div>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Patient</th>
+            <th>Doctor</th>
+            <th>Actions</th>
+        </tr>
+
+        <tr th:each="a : ${appointments}">
+            <td th:text="${a.id}"></td>
+            <td th:text="${a.date}"></td>
+            <td th:text="${a.status}"></td>
+            <td th:text="${a.patient.name}"></td>
+            <td th:text="${a.doctor.name}"></td>
+
+            <td class="actions">
+                <a th:href="@{'/appointment/search/' + ${a.id}}">View</a>
+                <a th:href="@{'/appointment/edit/' + ${a.id}}">Edit</a>
+
+                <form th:action="@{'/appointment/delete/' + ${a.id}}"
+                      method="post" style="display:inline;">
+                    <button class="delete-btn">Delete</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+</body>
+</html>

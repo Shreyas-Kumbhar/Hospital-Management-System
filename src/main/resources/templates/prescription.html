@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Prescription Details</title>
+    <link rel="stylesheet" th:href="@{/css/prescriptionView.css}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Prescription Details</h2>
+
+    <div class="card">
+
+        <p><b>ID:</b> <span th:text="${prescription.id}"></span></p>
+        <p><b>Medicine:</b> <span th:text="${prescription.medicine}"></span></p>
+        <p><b>Dosage:</b> <span th:text="${prescription.dosage}"></span></p>
+        <p><b>Notes:</b> <span th:text="${prescription.notes}"></span></p>
+        <p><b>Appointment ID:</b> <span th:text="${prescription.appointment.id}"></span></p>
+
+    </div>
+
+    <a class="button" th:href="@{/prescription/list}">← Back</a>
+
+</div>
+
+</body>
+</html>

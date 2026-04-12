@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Doctors List</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/doctors.css}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>All Doctors</h2>
+
+    <div class="top-bar">
+        <a class="add-btn" th:href="@{/doctors/add}">+ Add New Doctor</a>
+    </div>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Specialization</th>
+            <th>Phone</th>
+            <th>Actions</th>
+        </tr>
+
+        <tr th:each="doctor : ${doctors}">
+            <td th:text="${doctor.id}"></td>
+            <td th:text="${doctor.name}"></td>
+            <td th:text="${doctor.specialization}"></td>
+            <td th:text="${doctor.phone}"></td>
+
+            <td class="action-links">
+                <a th:href="@{'/doctors/' + ${doctor.id}}">View</a>
+                <a th:href="@{'/doctors/edit/' + ${doctor.id}}">Edit</a>
+
+                <form th:action="@{'/doctors/delete/' + ${doctor.id}}"
+                      method="post"
+                      style="display:inline;">
+                    <button class="delete-btn" type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <div class="delete-all">
+        <form th:action="@{/doctors/deleteAll}" method="post">
+            <button type="submit">Delete All Doctors</button>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

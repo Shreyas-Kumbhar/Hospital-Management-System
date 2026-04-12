@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Doctor Details</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/doctorView.css}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Doctor Profile</h2>
+
+    <div class="card">
+
+        <p><b>ID:</b> <span th:text="${doctor.id}"></span></p>
+        <p><b>Name:</b> <span th:text="${doctor.name}"></span></p>
+        <p><b>Specialization:</b> <span th:text="${doctor.specialization}"></span></p>
+        <p><b>Phone:</b> <span th:text="${doctor.phone}"></span></p>
+
+    </div>
+
+    <a class="button" th:href="@{/doctors/list}">← Back to List</a>
+
+</div>
+
+</body>
+</html>
