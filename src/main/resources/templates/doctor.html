@@ -3,7 +3,6 @@
 <head>
     <title>Doctor Details</title>
 
-    <!-- CSS -->
     <link rel="stylesheet" th:href="@{/css/doctorView.css}">
 </head>
 
@@ -11,7 +10,7 @@
 
 <div class="container">
 
-    <h2>Doctor Profile</h2>
+    <h2>👨‍⚕️ Doctor Profile</h2>
 
     <div class="card">
 
@@ -22,7 +21,10 @@
 
     </div>
 
-    <a class="button" th:href="@{/doctors/list}">← Back to List</a>
+    <div class="buttons">
+        <a class="button back" th:href="@{/doctors/list}">← Back</a>
+        <a class="button dashboard" th:href="@{/dashboard}">🏠 Dashboard</a>
+    </div>
 
 </div>
 
