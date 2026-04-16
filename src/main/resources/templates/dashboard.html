@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hospital Dashboard</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .card {
+            display: inline-block;
+            padding: 20px;
+            margin: 15px;
+            border-radius: 10px;
+            width: 200px;
+            background: #f2f2f2;
+            box-shadow: 2px 2px 10px #ccc;
+        }
+
+        a {
+            text-decoration: none;
+            font-size: 18px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+
+<h1>🏥 Hospital Management Dashboard</h1>
+
+<div class="card">
+    <a th:href="@{/doctors/list}">👨‍⚕️ Doctors</a>
+</div>
+
+<div class="card">
+    <a th:href="@{/patients/list}">🧑 Patients</a>
+</div>
+
+<div class="card">
+    <a th:href="@{/appointment/list}">📅 Appointments</a>
+</div>
+
+<div class="card">
+    <a th:href="@{/prescription/list}">💊 Prescriptions</a>
+</div>
+
+</body>
+</html>
