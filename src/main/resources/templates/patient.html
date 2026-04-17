@@ -2,23 +2,128 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Patient Details</title>
-    <link rel="stylesheet" th:href="@{/css/patientView.css}">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #eef5ff, #eaf2ff);
+            margin: 0;
+            animation: fadeInPage 0.8s ease;
+        }
+
+        /* container */
+        .container {
+            width: 450px;
+            margin: 70px auto;
+            text-align: center;
+            animation: slideUp 0.6s ease;
+        }
+
+        /* title */
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+        }
+
+        /* card */
+        .card {
+            background: rgba(255,255,255,0.95);
+            padding: 28px;
+            border-radius: 18px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+            text-align: left;
+            border-left: 5px solid #3498db;
+            backdrop-filter: blur(6px);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+        }
+
+        /* info rows */
+        .card p {
+            margin: 14px 0;
+            font-size: 15px;
+            color: #444;
+        }
+
+        .card b {
+            color: #2c3e50;
+            display: inline-block;
+            width: 120px;
+        }
+
+        /* highlight fields */
+        .highlight {
+            background: #e3f2fd;
+            color: #1565c0;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        /* button */
+        .button {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 22px;
+            background: linear-gradient(135deg, #3498db, #2c80b4);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(52,152,219,0.4);
+        }
+
+        .button:active {
+            transform: scale(0.95);
+        }
+
+        /* animations */
+        @keyframes fadeInPage {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+    </style>
 </head>
 
 <body>
 
 <div class="container">
 
-    <h2>Patient Profile</h2>
+    <h2>🧑‍⚕️ Patient Profile</h2>
 
     <div class="card">
 
         <p><b>ID:</b> <span th:text="${patient.id}"></span></p>
-        <p><b>Name:</b> <span th:text="${patient.name}"></span></p>
+
+        <p><b>Name:</b>
+            <span class="highlight" th:text="${patient.name}"></span>
+        </p>
+
         <p><b>Age:</b> <span th:text="${patient.age}"></span></p>
+
         <p><b>Address:</b> <span th:text="${patient.address}"></span></p>
+
         <p><b>Email:</b> <span th:text="${patient.email}"></span></p>
-        <p><b>Disease:</b> <span th:text="${patient.disease}"></span></p>
+
+        <p><b>Disease:</b>
+            <span class="highlight" th:text="${patient.disease}"></span>
+        </p>
 
     </div>
 

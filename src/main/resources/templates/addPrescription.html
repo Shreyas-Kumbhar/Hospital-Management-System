@@ -1,45 +1,178 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Add Prescription</title>
-    <link rel="stylesheet" th:href="@{/css/addPrescription.css}">
+    <title>Create Prescription</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #eef5ff, #eaf2ff);
+            margin: 0;
+            animation: fadeInPage 0.8s ease;
+        }
+
+        /* container */
+        .container {
+            width: 500px;
+            margin: 60px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.12);
+            transition: all 0.3s ease;
+            animation: slideUp 0.6s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 20px 55px rgba(0,0,0,0.15);
+        }
+
+        /* heading */
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+        }
+
+        /* labels */
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 600;
+            color: #34495e;
+        }
+
+        /* inputs */
+        input, select, textarea {
+            width: 100%;
+            padding: 11px;
+            margin-top: 6px;
+            border: 1px solid #dcdcdc;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        input:hover, select:hover, textarea:hover {
+            border-color: #16a085;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #16a085;
+            box-shadow: 0 0 10px rgba(22,160,133,0.4);
+            outline: none;
+            transform: scale(1.01);
+        }
+
+        /* button */
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 13px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #16a085, #138d75);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 20px rgba(22,160,133,0.4);
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+        /* error message */
+        .error-box {
+            color: #e74c3c;
+            background: #fdecea;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            text-align: center;
+            animation: shake 0.3s ease;
+        }
+
+        /* back link */
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+            letter-spacing: 0.5px;
+        }
+
+        /* animations */
+        @keyframes fadeInPage {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-3px); }
+            50% { transform: translateX(3px); }
+            75% { transform: translateX(-3px); }
+            100% { transform: translateX(0); }
+        }
+    </style>
 </head>
 
 <body>
 
 <div class="container">
 
-    <h2>Create Prescription</h2>
+    <h2>💊 Create Prescription</h2>
 
-    <p th:if="${error}" th:text="${error}" style="color:red;"></p>
+    <!-- Error Message -->
+    <div th:if="${error}" class="error-box" th:text="${error}"></div>
 
     <form th:action="@{/prescription}" method="post">
 
-        <label>Medicine:</label>
-        <input type="text" name="medicine" required />
+        <label>Medicine</label>
+        <input type="text" name="medicine" placeholder="Enter medicine name" required />
 
-        <label>Dosage:</label>
-        <input type="text" name="dosage" required />
+        <label>Dosage</label>
+        <input type="text" name="dosage" placeholder="e.g. 1 tablet twice a day" required />
 
-        <label>Notes:</label>
-        <input type="text" name="notes" required />
+        <label>Notes</label>
+        <textarea name="notes" rows="3" placeholder="Additional notes" required></textarea>
 
-        <label>Appointment:</label>
+        <label>Appointment</label>
         <select name="appointment" required>
             <option value="">-- Select Appointment --</option>
 
             <option th:each="a : ${appointments}"
                     th:value="${a.id}"
-                    th:text="'ID: ' + ${a.id}">
+                    th:text="'Appointment ID: ' + ${a.id}">
             </option>
-
         </select>
 
         <button type="submit">Save Prescription</button>
 
     </form>
 
-    <a th:href="@{/prescription/list}">Back</a>
+    <a class="back-link" th:href="@{/prescription/list}">← Back to List</a>
 
 </div>
 

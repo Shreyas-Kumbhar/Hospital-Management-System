@@ -3,37 +3,166 @@
 <head>
     <title>Add Doctor</title>
 
-    <!-- CSS link -->
-    <link rel="stylesheet" th:href="@{/css/addDoctor.css}">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #eef5ff, #eaf2ff);
+            margin: 0;
+            animation: fadeInPage 0.8s ease;
+        }
+
+        /* container */
+        .container {
+            width: 460px;
+            margin: 60px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.12);
+            transition: all 0.3s ease;
+            animation: slideUp 0.6s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 20px 55px rgba(0,0,0,0.15);
+        }
+
+        /* heading */
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+        }
+
+        /* labels */
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 600;
+            color: #34495e;
+        }
+
+        /* inputs */
+        input[type="text"] {
+            width: 100%;
+            padding: 11px;
+            margin-top: 6px;
+            border: 1px solid #dcdcdc;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        input:hover {
+            border-color: #3498db;
+        }
+
+        input:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 10px rgba(52,152,219,0.4);
+            outline: none;
+            transform: scale(1.01);
+        }
+
+        /* button */
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 13px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #28a745, #218838);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 20px rgba(40,167,69,0.4);
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+        /* error */
+        .error {
+            color: #e74c3c;
+            font-size: 12px;
+            margin-top: 3px;
+            animation: shake 0.3s ease;
+        }
+
+        /* back link */
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+            letter-spacing: 0.5px;
+        }
+
+        /* animations */
+        @keyframes fadeInPage {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-3px); }
+            50% { transform: translateX(3px); }
+            75% { transform: translateX(-3px); }
+            100% { transform: translateX(0); }
+        }
+    </style>
 </head>
 
 <body>
 
 <div class="container">
 
-    <h2>Add Doctor</h2>
+    <h2>👨‍⚕️ Add Doctor</h2>
 
     <form th:action="@{/doctors}" th:object="${doctor}" method="post">
 
-        <label>Name:</label>
-        <input type="text" th:field="*{name}" />
+        <label>Name</label>
+        <input type="text" th:field="*{name}" placeholder="Enter doctor name" />
         <p class="error"
            th:if="${#fields.hasErrors('name')}"
            th:errors="*{name}"></p>
 
-        <label>Specialization:</label>
-        <input type="text" th:field="*{specialization}" />
+        <label>Specialization</label>
+        <input type="text" th:field="*{specialization}" placeholder="e.g. Cardiologist" />
         <p class="error"
            th:if="${#fields.hasErrors('specialization')}"
            th:errors="*{specialization}"></p>
 
-        <label>Phone:</label>
-        <input type="text" th:field="*{phone}" />
+        <label>Phone</label>
+        <input type="text" th:field="*{phone}" placeholder="Enter phone number" />
         <p class="error"
            th:if="${#fields.hasErrors('phone')}"
            th:errors="*{phone}"></p>
 
-        <button type="submit">Save</button>
+        <button type="submit">Save Doctor</button>
+
     </form>
 
     <a class="back-link" th:href="@{/doctors/list}">← Back to List</a>
