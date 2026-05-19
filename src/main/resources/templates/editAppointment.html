@@ -154,18 +154,20 @@
         <p class="error" th:errors="*{status}"></p>
 
         <label>Patient</label>
-        <select th:field="*{patient}">
+        <select name="patient">
             <option th:each="p : ${patients}"
-                    th:value="${p}"
-                    th:text="${p.name}">
+                    th:value="${p.id}"
+                    th:text="${p.name}"
+                    th:selected="${appointment.patient.id == p.id}">
             </option>
         </select>
 
         <label>Doctor</label>
-        <select th:field="*{doctor}">
+        <select name="doctor">
             <option th:each="d : ${doctors}"
-                    th:value="${d}"
-                    th:text="${d.name}">
+                    th:value="${d.id}"
+                    th:text="${d.name}"
+                    th:selected="${appointment.doctor.id == d.id}">
             </option>
         </select>
 
@@ -179,3 +181,6 @@
 
 </body>
 </html>
+
+
+//fixed
