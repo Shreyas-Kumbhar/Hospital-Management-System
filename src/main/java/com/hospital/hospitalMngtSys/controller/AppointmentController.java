@@ -35,7 +35,7 @@ public class AppointmentController {
         return "addAppointment";
     }
 
-    // ✅ SAVE appointment (FIXED)
+    // SAVE appointment
     @PostMapping
     public String saveAppointment(@Valid @ModelAttribute("appointment") Appointment appointment,
                                   BindingResult bindingResult,
