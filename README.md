@@ -45,9 +45,19 @@ A clean, responsive table layout for managing doctors' profiles, specializations
 ![Doctors List](./screenshots/doctors_list.png)
 
 ### 🧑 Patients Directory
-Comprehensive client-side pagination-ready list displaying patient info, age, and diagnosed health conditions.
+Comprehensive list displaying patient info, age, address, and diagnosed health conditions.
 
 ![Patients List](./screenshots/patients_list.png)
+
+### 📅 Appointments Registry
+Scheduled consults detailing doctor, patient, date, and status.
+
+![Appointments List](./screenshots/appointments_list.png)
+
+### 💊 Prescriptions Log
+Record of assigned medications, dosage guides, and associated appointments.
+
+![Prescriptions List](./screenshots/prescriptions_list.png)
 
 ### 📅 Add Appointment Form
 Form validation and dropdown selection of doctors and patients for scheduling consults.
