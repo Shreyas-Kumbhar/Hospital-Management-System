@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Register – HMS</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <style>
+        body.auth-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .auth-wrapper {
+            width: 100%;
+            max-width: 440px;
+            animation: fadeUp .45s ease;
+        }
+
+        .auth-brand {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .auth-brand .brand-logo {
+            font-size: 48px;
+            display: block;
+            margin-bottom: 8px;
+            filter: drop-shadow(0 4px 12px rgba(56,189,248,.5));
+        }
+
+        .auth-brand h1 {
+            font-size: 22px;
+            font-weight: 800;
+            color: #f1f5f9;
+            letter-spacing: .5px;
+        }
+
+        .auth-brand p {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-top: 4px;
+        }
+
+        .auth-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 38px 40px 32px;
+            box-shadow: 0 24px 64px rgba(0,0,0,.35);
+        }
+
+        .auth-card h2 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 6px;
+        }
+
+        .auth-card .subtitle {
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 26px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: .4px;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .input-wrap .input-icon {
+            position: absolute;
+            left: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            pointer-events: none;
+        }
+
+        .input-wrap input {
+            width: 100%;
+            padding: 11px 14px 11px 40px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: inherit;
+            color: #1e293b;
+            background: #f8fafc;
+            outline: none;
+            transition: all .25s ease;
+        }
+
+        .input-wrap input:focus {
+            border-color: #16a34a;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(22,163,74,.12);
+        }
+
+        /* Password strength hint */
+        .hint {
+            font-size: 11.5px;
+            color: #94a3b8;
+            margin-top: 5px;
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #16a34a, #15803d);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all .25s ease;
+            margin-top: 6px;
+            letter-spacing: .3px;
+        }
+
+        .auth-btn:hover  { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(22,163,74,.4); }
+        .auth-btn:active { transform: scale(.98); }
+
+        .auth-alert {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .auth-alert.error   { background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5; }
+        .auth-alert.success { background: #dcfce7; color: #16a34a; border: 1px solid #86efac; }
+
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 22px 0;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e2e8f0;
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .auth-footer a {
+            color: #2563eb;
+            font-weight: 600;
+            text-decoration: none;
+            transition: opacity .2s;
+        }
+
+        .auth-footer a:hover { opacity: .75; text-decoration: underline; }
+
+        /* Password match indicator */
+        #matchHint { font-size: 12px; margin-top: 5px; display: none; }
+        #matchHint.match   { color: #16a34a; }
+        #matchHint.nomatch { color: #dc2626; }
+    </style>
+</head>
+<body class="auth-page">
+
+<div class="auth-wrapper">
+
+    <!-- Brand -->
+    <div class="auth-brand">
+        <span class="brand-logo">🏥</span>
+        <h1>Hospital Management System</h1>
+        <p>Create an account to get started</p>
+    </div>
+
+    <!-- Card -->
+    <div class="auth-card">
+        <h2>Create Account 🚀</h2>
+        <p class="subtitle">Fill in the fields below to register</p>
+
+        <!-- Alert -->
+        <div th:if="${errorMsg}" class="auth-alert error">
+            <span>⚠️</span> <span th:text="${errorMsg}"></span>
+        </div>
+        <div th:if="${successMsg}" class="auth-alert success">
+            <span>✅</span> <span th:text="${successMsg}"></span>
+        </div>
+
+        <!-- Register form -->
+        <form th:action="@{/register}" method="post" id="registerForm">
+
+            <div class="input-group">
+                <label for="username">Username</label>
+                <div class="input-wrap">
+                    <span class="input-icon">👤</span>
+                    <input type="text" id="username" name="username"
+                           placeholder="Choose a username" autocomplete="username"
+                           minlength="3" required/>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+                <div class="input-wrap">
+                    <span class="input-icon">🔒</span>
+                    <input type="password" id="password" name="password"
+                           placeholder="At least 6 characters"
+                           autocomplete="new-password" minlength="6" required/>
+                </div>
+                <div class="hint">Minimum 6 characters</div>
+            </div>
+
+            <div class="input-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <div class="input-wrap">
+                    <span class="input-icon">🔑</span>
+                    <input type="password" id="confirmPassword" name="confirmPassword"
+                           placeholder="Re-enter your password"
+                           autocomplete="new-password" required/>
+                </div>
+                <div id="matchHint"></div>
+            </div>
+
+            <button class="auth-btn" type="submit">✅ Create Account</button>
+        </form>
+
+        <div class="auth-divider">already have an account?</div>
+
+        <div class="auth-footer">
+            <a th:href="@{/login}">← Back to Login</a>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Real-time password match check
+    const pw  = document.getElementById('password');
+    const cpw = document.getElementById('confirmPassword');
+    const hint = document.getElementById('matchHint');
+
+    function checkMatch() {
+        if (!cpw.value) { hint.style.display = 'none'; return; }
+        hint.style.display = 'block';
+        if (pw.value === cpw.value) {
+            hint.textContent = '✅ Passwords match';
+            hint.className = 'match';
+        } else {
+            hint.textContent = '❌ Passwords do not match';
+            hint.className = 'nomatch';
+        }
+    }
+
+    pw.addEventListener('input', checkMatch);
+    cpw.addEventListener('input', checkMatch);
+
+    // Block submit if mismatch
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+        if (pw.value !== cpw.value) {
+            e.preventDefault();
+            hint.style.display = 'block';
+            hint.textContent = '❌ Passwords do not match';
+            hint.className = 'nomatch';
+        }
+    });
+</script>
+
+</body>
+</html>
