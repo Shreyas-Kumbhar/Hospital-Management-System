@@ -363,3 +363,10 @@ All 17 Thymeleaf templates share a single stylesheet at `static/css/style.css`. 
 ## 👤 Author
 
 Built as a full-stack Spring Boot learning project covering MVC architecture, Spring Security, JPA relationships, Thymeleaf templating, and modern CSS design.
+
+
+Copyright © 2026 Shreyas Kumbhar.
+All rights reserved.
+
+This repository is shared for educational and portfolio purposes only.
+Unauthorized copying, redistribution, or commercial use is prohibited without written permission.
