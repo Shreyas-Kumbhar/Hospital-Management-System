@@ -1,149 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Edit Doctor</title>
-
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #eef5ff, #eaf2ff);
-            margin: 0;
-            animation: fadeInPage 0.8s ease;
-        }
-
-        /* container */
-        .container {
-            width: 460px;
-            margin: 60px auto;
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 18px;
-            box-shadow: 0 15px 45px rgba(0,0,0,0.12);
-            transition: all 0.3s ease;
-            animation: slideUp 0.6s ease;
-        }
-
-        .container:hover {
-            transform: translateY(-6px) scale(1.01);
-            box-shadow: 0 20px 55px rgba(0,0,0,0.15);
-        }
-
-        /* heading */
-        h2 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 25px;
-            letter-spacing: 0.5px;
-        }
-
-        /* labels */
-        label {
-            display: block;
-            margin-top: 15px;
-            font-weight: 600;
-            color: #34495e;
-        }
-
-        /* inputs */
-        input[type="text"] {
-            width: 100%;
-            padding: 11px;
-            margin-top: 6px;
-            border: 1px solid #dcdcdc;
-            border-radius: 10px;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-
-        input:hover {
-            border-color: #3498db;
-        }
-
-        input:focus {
-            border-color: #3498db;
-            box-shadow: 0 0 10px rgba(52,152,219,0.4);
-            outline: none;
-            transform: scale(1.01);
-        }
-
-        /* button */
-        button {
-            width: 100%;
-            margin-top: 25px;
-            padding: 13px;
-            border: none;
-            border-radius: 10px;
-            background: linear-gradient(135deg, #3498db, #2c80b4);
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        button:hover {
-            transform: scale(1.04);
-            box-shadow: 0 8px 20px rgba(52,152,219,0.4);
-        }
-
-        button:active {
-            transform: scale(0.96);
-        }
-
-        /* back link */
-        .back-link {
-            display: block;
-            text-align: center;
-            margin-top: 18px;
-            color: #3498db;
-            text-decoration: none;
-            font-weight: 500;
-            transition: 0.2s;
-        }
-
-        .back-link:hover {
-            text-decoration: underline;
-            letter-spacing: 0.5px;
-        }
-
-        /* animations */
-        @keyframes fadeInPage {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-    </style>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Edit Doctor – HMS</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
+<body class="form-page">
 
-<body>
-
-<div class="container">
-
-    <h2>✏️ Edit Doctor</h2>
+<div class="form-card">
+    <div class="form-card-header">
+        <div class="form-icon">✏️</div>
+        <h2>Edit Doctor</h2>
+        <p>Update the doctor's information below</p>
+    </div>
 
     <form th:action="@{'/doctors/update/' + ${doctor.id}}"
           th:object="${doctor}" method="post">
 
-        <label>Name</label>
-        <input type="text" th:field="*{name}" placeholder="Enter doctor name" />
+        <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" th:field="*{name}" placeholder="Dr. John Smith"/>
+        </div>
 
-        <label>Specialization</label>
-        <input type="text" th:field="*{specialization}" placeholder="e.g. Cardiologist" />
+        <div class="form-group">
+            <label for="spec">Specialization</label>
+            <input type="text" id="spec" th:field="*{specialization}" placeholder="e.g. Cardiologist"/>
+        </div>
 
-        <label>Phone</label>
-        <input type="text" th:field="*{phone}" placeholder="Enter phone number" />
+        <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="text" id="phone" th:field="*{phone}" placeholder="+1 234 567 8900"/>
+        </div>
 
-        <button type="submit">Update Doctor</button>
-
+        <button class="form-submit blue" type="submit">💾 Update Doctor</button>
     </form>
 
-    <a class="back-link" th:href="@{/doctors/list}">← Back to List</a>
-
+    <div class="form-footer">
+        <a class="back-link" th:href="@{/doctors/list}">← Back to Doctors</a>
+    </div>
 </div>
 
 </body>

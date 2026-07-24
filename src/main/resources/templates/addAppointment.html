@@ -1,181 +1,67 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Create Appointment</title>
-
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #eef5ff, #eaf2ff);
-            margin: 0;
-            animation: fadeInPage 0.8s ease;
-        }
-
-        /* container */
-        .container {
-            width: 480px;
-            margin: 60px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 18px;
-            box-shadow: 0 15px 45px rgba(0,0,0,0.12);
-            transition: all 0.3s ease;
-            animation: slideUp 0.6s ease;
-        }
-
-        .container:hover {
-            transform: translateY(-6px) scale(1.01);
-            box-shadow: 0 20px 55px rgba(0,0,0,0.15);
-        }
-
-        /* heading */
-        h2 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 25px;
-            letter-spacing: 0.5px;
-        }
-
-        /* labels */
-        label {
-            display: block;
-            margin-top: 15px;
-            font-weight: 600;
-            color: #34495e;
-        }
-
-        /* inputs */
-        input, select {
-            width: 100%;
-            padding: 11px;
-            margin-top: 6px;
-            border: 1px solid #dcdcdc;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            font-size: 14px;
-        }
-
-        input:hover, select:hover {
-            border-color: #3498db;
-        }
-
-        input:focus, select:focus {
-            border-color: #3498db;
-            box-shadow: 0 0 10px rgba(52,152,219,0.4);
-            outline: none;
-            transform: scale(1.01);
-        }
-
-        /* button */
-        button {
-            width: 100%;
-            margin-top: 25px;
-            padding: 13px;
-            border: none;
-            border-radius: 10px;
-            background: linear-gradient(135deg, #3498db, #2c80b4);
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        button:hover {
-            transform: scale(1.04);
-            box-shadow: 0 8px 20px rgba(52,152,219,0.4);
-        }
-
-        button:active {
-            transform: scale(0.97);
-        }
-
-        /* back link */
-        .back-link {
-            display: block;
-            text-align: center;
-            margin-top: 18px;
-            color: #3498db;
-            text-decoration: none;
-            font-weight: 500;
-            transition: 0.2s;
-        }
-
-        .back-link:hover {
-            text-decoration: underline;
-            letter-spacing: 0.5px;
-        }
-
-        /* error */
-        .error {
-            color: #e74c3c;
-            font-size: 12px;
-            margin-top: 3px;
-            animation: shake 0.3s ease;
-        }
-
-        /* animations */
-        @keyframes fadeInPage {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes shake {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-3px); }
-            50% { transform: translateX(3px); }
-            75% { transform: translateX(-3px); }
-            100% { transform: translateX(0); }
-        }
-
-    </style>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>New Appointment – HMS</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
+<body class="form-page">
 
-<body>
-
-<div class="container">
-
-    <h2>📅 Create Appointment</h2>
+<div class="form-card">
+    <div class="form-card-header">
+        <div class="form-icon">📅</div>
+        <h2>Schedule Appointment</h2>
+        <p>Book a new appointment for a patient</p>
+    </div>
 
     <form th:action="@{/appointment}" th:object="${appointment}" method="post">
 
-        <label>Date</label>
-        <input type="date" th:field="*{date}" />
-        <p class="error" th:errors="*{date}"></p>
+        <div class="form-group">
+            <label for="date">Appointment Date</label>
+            <input type="date" id="date" th:field="*{date}"/>
+            <div class="field-error" th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></div>
+        </div>
 
-        <label>Status</label>
-        <input type="text" th:field="*{status}" placeholder="Scheduled / Completed" />
-        <p class="error" th:errors="*{status}"></p>
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select id="status" th:field="*{status}">
+                <option value="">-- Select Status --</option>
+                <option value="Scheduled">Scheduled</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+            </select>
+            <div class="field-error" th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></div>
+        </div>
 
-        <label>Patient</label>
-        <select name="patient">
-            <option value="">-- Select Patient --</option>
-            <option th:each="p : ${patients}"
-                    th:value="${p.id}"
-                    th:text="${p.name}">
-            </option>
-        </select>
+        <div class="form-group">
+            <label for="patient">Patient</label>
+            <select id="patient" name="patient">
+                <option value="">-- Select Patient --</option>
+                <option th:each="p : ${patients}"
+                        th:value="${p.id}"
+                        th:text="${p.name}">
+                </option>
+            </select>
+        </div>
 
-        <label>Doctor</label>
-        <select name="doctor">
-            <option value="">-- Select Doctor --</option>
-            <option th:each="d : ${doctors}"
-                    th:value="${d.id}"
-                    th:text="${d.name}">
-            </option>
-        </select>
+        <div class="form-group">
+            <label for="doctor">Doctor</label>
+            <select id="doctor" name="doctor">
+                <option value="">-- Select Doctor --</option>
+                <option th:each="d : ${doctors}"
+                        th:value="${d.id}"
+                        th:text="${d.name + ' – ' + d.specialization}">
+                </option>
+            </select>
+        </div>
 
-        <button type="submit">Save Appointment</button>
-
+        <button class="form-submit blue" type="submit">📅 Save Appointment</button>
     </form>
 
-    <a class="back-link" th:href="@{/appointment/list}">← Back to List</a>
-
+    <div class="form-footer">
+        <a class="back-link" th:href="@{/appointment/list}">← Back to Appointments</a>
+    </div>
 </div>
 
 </body>

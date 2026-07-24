@@ -1,177 +1,59 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Edit Patient</title>
-
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #eef5ff, #eaf2ff);
-            margin: 0;
-            animation: fadeInPage 0.8s ease;
-        }
-
-        /* container */
-        .container {
-            width: 480px;
-            margin: 60px auto;
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 18px;
-            box-shadow: 0 15px 45px rgba(0,0,0,0.12);
-            transition: all 0.3s ease;
-            animation: slideUp 0.6s ease;
-        }
-
-        .container:hover {
-            transform: translateY(-6px) scale(1.01);
-            box-shadow: 0 20px 55px rgba(0,0,0,0.15);
-        }
-
-        /* heading */
-        h2 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 25px;
-            letter-spacing: 0.5px;
-        }
-
-        /* labels */
-        label {
-            display: block;
-            margin-top: 15px;
-            font-weight: 600;
-            color: #34495e;
-        }
-
-        /* inputs */
-        input {
-            width: 100%;
-            padding: 11px;
-            margin-top: 6px;
-            border: 1px solid #dcdcdc;
-            border-radius: 10px;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-
-        input:hover {
-            border-color: #3498db;
-        }
-
-        input:focus {
-            border-color: #3498db;
-            box-shadow: 0 0 10px rgba(52,152,219,0.4);
-            outline: none;
-            transform: scale(1.01);
-        }
-
-        /* error */
-        .error {
-            color: #e74c3c;
-            font-size: 12px;
-            margin-top: 3px;
-            animation: shake 0.3s ease;
-        }
-
-        /* button */
-        button {
-            width: 100%;
-            margin-top: 25px;
-            padding: 13px;
-            border: none;
-            border-radius: 10px;
-            background: linear-gradient(135deg, #3498db, #2c80b4);
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        button:hover {
-            transform: scale(1.04);
-            box-shadow: 0 8px 20px rgba(52,152,219,0.4);
-        }
-
-        button:active {
-            transform: scale(0.96);
-        }
-
-        /* back link */
-        .back-link {
-            display: block;
-            text-align: center;
-            margin-top: 18px;
-            color: #3498db;
-            text-decoration: none;
-            font-weight: 500;
-            transition: 0.2s;
-        }
-
-        .back-link:hover {
-            text-decoration: underline;
-            letter-spacing: 0.5px;
-        }
-
-        /* animations */
-        @keyframes fadeInPage {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes shake {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-3px); }
-            50% { transform: translateX(3px); }
-            75% { transform: translateX(-3px); }
-            100% { transform: translateX(0); }
-        }
-
-    </style>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Edit Patient – HMS</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
+<body class="form-page">
 
-<body>
-
-<div class="container">
-
-    <h2>🧑‍⚕️ Edit Patient</h2>
+<div class="form-card">
+    <div class="form-card-header">
+        <div class="form-icon">✏️</div>
+        <h2>Edit Patient</h2>
+        <p>Update the patient's information below</p>
+    </div>
 
     <form th:action="@{'/patients/update/' + ${patient.id}}"
-          th:object="${patient}"
-          method="post">
+          th:object="${patient}" method="post">
 
-        <label>Name</label>
-        <input type="text" th:field="*{name}" placeholder="Enter patient name" />
-        <p class="error" th:errors="*{name}"></p>
+        <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" th:field="*{name}" placeholder="John Doe"/>
+            <div class="field-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+        </div>
 
-        <label>Age</label>
-        <input type="number" th:field="*{age}" placeholder="Enter age" />
-        <p class="error" th:errors="*{age}"></p>
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" id="age" th:field="*{age}" placeholder="e.g. 35" min="0" max="150"/>
+            <div class="field-error" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
+        </div>
 
-        <label>Address</label>
-        <input type="text" th:field="*{address}" placeholder="Enter address" />
-        <p class="error" th:errors="*{address}"></p>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" id="address" th:field="*{address}" placeholder="123 Main Street, City"/>
+            <div class="field-error" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
+        </div>
 
-        <label>Email</label>
-        <input type="text" th:field="*{email}" placeholder="Enter email" />
-        <p class="error" th:errors="*{email}"></p>
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" th:field="*{email}" placeholder="patient@email.com"/>
+            <div class="field-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+        </div>
 
-        <label>Disease</label>
-        <input type="text" th:field="*{disease}" placeholder="Enter disease" />
-        <p class="error" th:errors="*{disease}"></p>
+        <div class="form-group">
+            <label for="disease">Diagnosis / Disease</label>
+            <input type="text" id="disease" th:field="*{disease}" placeholder="e.g. Hypertension"/>
+            <div class="field-error" th:if="${#fields.hasErrors('disease')}" th:errors="*{disease}"></div>
+        </div>
 
-        <button type="submit">Update Patient</button>
-
+        <button class="form-submit blue" type="submit">💾 Update Patient</button>
     </form>
 
-    <a class="back-link" th:href="@{/patients/list}">← Back to List</a>
-
+    <div class="form-footer">
+        <a class="back-link" th:href="@{/patients/list}">← Back to Patients</a>
+    </div>
 </div>
 
 </body>

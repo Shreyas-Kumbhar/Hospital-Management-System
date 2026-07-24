@@ -1,257 +1,136 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Patients List</title>
-
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #eef5ff, #eaf2ff);
-            margin: 0;
-            animation: fadeInPage 0.8s ease;
-        }
-
-        /* container */
-        .container {
-            width: 92%;
-            margin: 40px auto;
-            animation: slideUp 0.6s ease;
-        }
-
-        /* heading */
-        h2 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 25px;
-            letter-spacing: 0.5px;
-        }
-
-        /* top bar */
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        /* buttons */
-        .btn {
-            padding: 11px 18px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-
-        /* dashboard button */
-        .dashboard-btn {
-            background: linear-gradient(135deg, #34495e, #2c3e50);
-            color: white;
-        }
-
-        .dashboard-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(44,62,80,0.4);
-        }
-
-        /* add button */
-        .add-btn {
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
-            color: white;
-        }
-
-        .add-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(46,204,113,0.4);
-        }
-
-        /* table */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: #ffffff;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-        }
-
-        /* header */
-        th {
-            background: #34495e;
-            color: white;
-            padding: 15px;
-            text-align: left;
-            font-size: 15px;
-        }
-
-        /* cells */
-        td {
-            padding: 14px;
-            border-bottom: 1px solid #f0f0f0;
-            font-size: 14px;
-            color: #444;
-            transition: 0.2s;
-        }
-
-        /* row hover */
-        tr {
-            transition: all 0.25s ease;
-        }
-
-        tr:hover {
-            background: #f5f9ff;
-            transform: scale(1.01);
-        }
-
-        /* disease badge */
-        .badge {
-            padding: 5px 10px;
-            border-radius: 8px;
-            background: #fdecea;
-            color: #c0392b;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        /* actions */
-        .action-links {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .action-links a {
-            text-decoration: none;
-            font-weight: 600;
-            color: #3498db;
-            transition: 0.2s;
-        }
-
-        .action-links a:hover {
-            text-decoration: underline;
-        }
-
-        /* delete button */
-        .delete-btn {
-            border: none;
-            border-radius: 6px;
-            padding: 6px 12px;
-            cursor: pointer;
-            font-size: 13px;
-            background: #e74c3c;
-            color: white;
-            transition: 0.3s ease;
-        }
-
-        .delete-btn:hover {
-            transform: scale(1.05);
-            background: #c0392b;
-        }
-
-        .delete-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* delete all */
-        .delete-all {
-            margin-top: 20px;
-            text-align: right;
-        }
-
-        .delete-all button {
-            padding: 10px 16px;
-            border: none;
-            border-radius: 10px;
-            background: linear-gradient(135deg, #ff5e5e, #e60000);
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s ease;
-        }
-
-        .delete-all button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(231,76,60,0.4);
-        }
-
-        /* animations */
-        @keyframes fadeInPage {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-    </style>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Patients – HMS</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
-
 <body>
 
-<div class="container">
+<div class="layout">
 
-    <h2>🧑‍⚕️ All Patients</h2>
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <span class="brand-icon">🏥</span>
+            <div>
+                <div class="brand-text">HMS</div>
+                <div class="brand-sub">Hospital Management</div>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-label">Overview</div>
+            <a th:href="@{/dashboard}">
+                <span class="nav-icon">🏠</span><span class="nav-text">Dashboard</span>
+            </a>
+            <div class="nav-label">Manage</div>
+            <a th:href="@{/doctors/list}">
+                <span class="nav-icon">👨‍⚕️</span><span class="nav-text">Doctors</span>
+            </a>
+            <a th:href="@{/doctors/add}">
+                <span class="nav-icon">➕</span><span class="nav-text">Add Doctor</span>
+            </a>
+            <a th:href="@{/patients/list}" class="active">
+                <span class="nav-icon">🧑</span><span class="nav-text">Patients</span>
+            </a>
+            <a th:href="@{/patients/add}">
+                <span class="nav-icon">➕</span><span class="nav-text">Add Patient</span>
+            </a>
+            <div class="nav-label">Scheduling</div>
+            <a th:href="@{/appointment/list}">
+                <span class="nav-icon">📅</span><span class="nav-text">Appointments</span>
+            </a>
+            <a th:href="@{/appointment/add}">
+                <span class="nav-icon">➕</span><span class="nav-text">New Appointment</span>
+            </a>
+            <div class="nav-label">Pharmacy</div>
+            <a th:href="@{/prescription/list}">
+                <span class="nav-icon">💊</span><span class="nav-text">Prescriptions</span>
+            </a>
+            <a th:href="@{/prescription/add}">
+                <span class="nav-icon">➕</span><span class="nav-text">Add Prescription</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">HMS v1.0</div>
+    </aside>
 
-    <div class="top-bar">
-        <!-- Dashboard Button -->
-        <a class="btn dashboard-btn" th:href="@{/dashboard}">🏠 Dashboard</a>
+    <!-- ── Main ── -->
+    <div class="main">
+        <div class="topbar">
+            <div class="topbar-title"><span>🧑</span> Patient Management</div>
+            <div class="topbar-right">
+                <a class="btn btn-success" th:href="@{/patients/add}">+ Add Patient</a>
+            </div>
+        </div>
 
-        <!-- Add Button -->
-        <a class="btn add-btn" th:href="@{/patients/add}">+ Add New Patient</a>
+        <div class="content">
+
+            <div class="toast-container" id="toastContainer"></div>
+
+            <div class="page-header">
+                <div class="page-title"><span>🧑</span> All Patients</div>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Address</th>
+                            <th>Email</th>
+                            <th>Disease</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="patient : ${patients}">
+                            <td th:text="${patient.id}"></td>
+                            <td><strong th:text="${patient.name}"></strong></td>
+                            <td th:text="${patient.age}"></td>
+                            <td th:text="${patient.address}"></td>
+                            <td th:text="${patient.email}"></td>
+                            <td>
+                                <span class="badge badge-red" th:text="${patient.disease}"></span>
+                            </td>
+                            <td>
+                                <div class="action-group">
+                                    <a class="btn-action btn-view"
+                                       th:href="@{'/patients/' + ${patient.id}}">👁 View</a>
+                                    <a class="btn-action btn-edit"
+                                       th:href="@{'/patients/edit/' + ${patient.id}}">✏️ Edit</a>
+                                    <form th:action="@{'/patients/delete/' + ${patient.id}}"
+                                          method="post" style="display:inline;">
+                                        <button class="btn-action btn-delete"
+                                                onclick="return confirm('Delete this patient?')">
+                                            🗑 Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(patients)}">
+                            <td colspan="7" style="text-align:center; padding:30px; color:#94a3b8;">
+                                No patients found. <a th:href="@{/patients/add}" style="color:#2563eb;">Add one</a>.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="table-footer">
+                    <form th:action="@{/patients/deleteAll}" method="post">
+                        <button class="btn btn-danger" type="submit"
+                                onclick="return confirm('Delete ALL patients? This cannot be undone!')">
+                            🗑 Delete All Patients
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
     </div>
-
-    <table>
-
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Address</th>
-            <th>Email</th>
-            <th>Disease</th>
-            <th>Actions</th>
-        </tr>
-
-        <tr th:each="patient : ${patients}">
-            <td th:text="${patient.id}"></td>
-            <td th:text="${patient.name}"></td>
-            <td th:text="${patient.age}"></td>
-            <td th:text="${patient.address}"></td>
-            <td th:text="${patient.email}"></td>
-
-            <td>
-                <span class="badge" th:text="${patient.disease}"></span>
-            </td>
-
-            <td class="action-links">
-                <a th:href="@{'/patients/' + ${patient.id}}">View</a>
-                <a th:href="@{'/patients/edit/' + ${patient.id}}">Edit</a>
-
-                <form th:action="@{'/patients/delete/' + ${patient.id}}"
-                      method="post"
-                      style="display:inline;">
-                    <button class="delete-btn"
-                            onclick="return confirm('Delete this patient?')">
-                        Delete
-                    </button>
-                </form>
-            </td>
-        </tr>
-
-    </table>
-
-    <div class="delete-all">
-        <form th:action="@{/patients/deleteAll}" method="post">
-            <button type="submit"
-                    onclick="return confirm('Delete ALL patients? This cannot be undone!')">
-                Delete All Patients
-            </button>
-        </form>
-    </div>
-
 </div>
 
 </body>

@@ -1,144 +1,53 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Appointment Details</title>
-
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #eef5ff, #eaf2ff);
-            margin: 0;
-            animation: fadeInPage 0.8s ease;
-        }
-
-        /* container */
-        .container {
-            width: 440px;
-            margin: 70px auto;
-            text-align: center;
-            animation: slideUp 0.6s ease;
-        }
-
-        /* heading */
-        h2 {
-            color: #2c3e50;
-            margin-bottom: 25px;
-            letter-spacing: 0.5px;
-        }
-
-        /* card */
-        .card {
-            background: #ffffff;
-            padding: 28px;
-            border-radius: 18px;
-            box-shadow: 0 15px 45px rgba(0,0,0,0.12);
-            text-align: left;
-            border-left: 6px solid #3498db;
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-6px) scale(1.01);
-            box-shadow: 0 20px 55px rgba(0,0,0,0.15);
-        }
-
-        /* rows */
-        .card p {
-            margin: 14px 0;
-            font-size: 15px;
-            color: #444;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* labels */
-        .card b {
-            color: #2c3e50;
-            font-weight: 600;
-        }
-
-        /* value */
-        .card span {
-            font-weight: 500;
-            color: #555;
-        }
-
-        /* status badge */
-        .status {
-            padding: 4px 10px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            background: #d4edda;
-            color: #155724;
-            animation: fadeInBadge 0.6s ease;
-        }
-
-        /* button */
-        .button {
-            display: inline-block;
-            margin-top: 25px;
-            padding: 11px 22px;
-            background: linear-gradient(135deg, #3498db, #2c80b4);
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(52,152,219,0.4);
-        }
-
-        .button:active {
-            transform: scale(0.96);
-        }
-
-        /* animations */
-        @keyframes fadeInPage {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes fadeInBadge {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-    </style>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Appointment Details – HMS</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
+<body class="detail-page">
 
-<body>
-
-<div class="container">
-
-    <h2>📅 Appointment Details</h2>
-
-    <div class="card">
-
-        <p><b>ID</b> <span th:text="${appointment.id}"></span></p>
-        <p><b>Date</b> <span th:text="${appointment.date}"></span></p>
-
-        <p>
-            <b>Status</b>
-            <span class="status" th:text="${appointment.status}"></span>
-        </p>
-
-        <p><b>Patient</b> <span th:text="${appointment.patient.name}"></span></p>
-        <p><b>Doctor</b> <span th:text="${appointment.doctor.name}"></span></p>
-
+<div class="detail-card">
+    <div class="detail-card-header">
+        <div class="detail-icon">📅</div>
+        <h2>Appointment Details</h2>
     </div>
 
-    <a class="button" th:href="@{/appointment/list}">← Back to List</a>
+    <div class="detail-accent yellow">
+        <div class="detail-row">
+            <span class="detail-label">ID</span>
+            <span class="detail-value" th:text="${appointment.id}"></span>
+        </div>
+        <div class="detail-row">
+            <span class="detail-label">Date</span>
+            <span class="detail-value" th:text="${appointment.date}"></span>
+        </div>
+        <div class="detail-row">
+            <span class="detail-label">Status</span>
+            <span class="detail-value">
+                <span class="badge"
+                      th:text="${appointment.status}"
+                      th:classappend="${appointment.status == 'Scheduled'} ? ' status-scheduled' :
+                                       (${appointment.status == 'Completed'} ? ' status-completed' : ' status-cancelled')">
+                </span>
+            </span>
+        </div>
+        <div class="detail-row">
+            <span class="detail-label">Patient</span>
+            <span class="detail-value" th:text="${appointment.patient.name}"></span>
+        </div>
+        <div class="detail-row">
+            <span class="detail-label">Doctor</span>
+            <span class="detail-value" th:text="${appointment.doctor.name}"></span>
+        </div>
+    </div>
 
+    <div class="detail-actions">
+        <a class="btn btn-outline" th:href="@{/appointment/list}">← Back</a>
+        <a class="btn btn-warning" th:href="@{'/appointment/edit/' + ${appointment.id}}">✏️ Edit</a>
+        <a class="btn btn-primary" th:href="@{/dashboard}">🏠 Dashboard</a>
+    </div>
 </div>
 
 </body>
