@@ -337,14 +337,36 @@ All 17 Thymeleaf templates share a single stylesheet at `static/css/style.css`. 
 
 ## 📸 Screenshots
 
-| Screen | Path |
-|---|---|
-| Dashboard | `screenshots/dashboard.png` |
-| Doctors list | `screenshots/doctors_list.png` |
-| Patients list | `screenshots/patients_list.png` |
-| Appointments list | `screenshots/appointments_list.png` |
-| Prescriptions list | `screenshots/prescriptions_list.png` |
-| Add Appointment | `screenshots/add_appointment.png` |
+<div align="center">
+  <img src="screenshots/dashboard.png" alt="Dashboard" width="800"/>
+  <br/>
+  <i>Dashboard Overview</i>
+  <br/><br/>
+
+  <img src="screenshots/doctors_list.png" alt="Doctors List" width="800"/>
+  <br/>
+  <i>Doctors Management</i>
+  <br/><br/>
+
+  <img src="screenshots/patients_list.png" alt="Patients List" width="800"/>
+  <br/>
+  <i>Patients Directory</i>
+  <br/><br/>
+
+  <img src="screenshots/appointments_list.png" alt="Appointments List" width="800"/>
+  <br/>
+  <i>Appointments Scheduling</i>
+  <br/><br/>
+
+  <img src="screenshots/prescriptions_list.png" alt="Prescriptions List" width="800"/>
+  <br/>
+  <i>Prescriptions Records</i>
+  <br/><br/>
+
+  <img src="screenshots/add_appointment.png" alt="Add Appointment" width="800"/>
+  <br/>
+  <i>Booking a New Appointment</i>
+</div>
 
 ---
 
