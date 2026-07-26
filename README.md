@@ -390,6 +390,7 @@ Built as a full-stack Spring Boot learning project covering MVC architecture, Sp
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+---
 
 <div align="center">
   Built with ❤️ by <strong>Shreyas Kumbhar</strong>
